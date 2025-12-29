@@ -1,0 +1,23 @@
+name: AdventureWorks CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print hello message
+        run: echo "Hello world - AdventureWorks CI is running"
+
+      - name: List repository files
+        run: ls -R
