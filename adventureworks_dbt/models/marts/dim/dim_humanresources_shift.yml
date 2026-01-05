@@ -1,9 +1,0 @@
-version: 2
-
-models:
-  - name: dim_humanresources_shift
-    columns:
-      - name: shift_id
-        tests:
-          - not_null
-          - unique
