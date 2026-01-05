@@ -1,47 +1,76 @@
-# awss3\_snowflake\_powerbi
+# awss3_snowflake_powerbi
 
-\- Build a full flow for sample AdventureWork database from archieve on S3 , data process by snowflake and data visual by powerbi
-- python --version > 3.9
-- pip install pipx
-- pipx ensurepath
+A small project that demonstrates a complete flow for the AdventureWorks sample dataset:
 
-\- use csv\_export folder powershell to export and organize db csv
+- Source CSV files stored on Amazon S3
+- Ingestion and processing with Snowflake
+- Visualization with Power BI
 
-\- create bucket s3: bucket name - aws region - bucket type (general purpose) - object ownership (ACLs disabled) - Block public Access (All) - Encryption (...SSE-S3) - Create bucket - Create folder
+---
 
-\- IAM - Users - Create user - user name - AmazonS3FullAccess policy - security credentials - create access key - CLI - save csv key
+## Prerequisites ✅
 
-\- Download AWS CLI - check by (cmd: aws --version) - cmd: aws configure (2 key + default region of s3 bucket + output = json) - test by cmd: aws s3 ls - Upload folder: 
+- **Python** 3.9 or newer (`python --version`)
+- **pipx** (optional but recommended):
 
-&nbsp;    - aws s3 sync C:\\Users\\no1pr\\Documents\\000\_Code\\awss3\_snowflake\_powerbi\\csv\_export\\AdventureWorks\_CSV\_SAFE\\dim s3://adventureworks-mockup-dienpt7/raw/dim
+```powershell
+pip install pipx
+pipx ensurepath
+```
 
-&nbsp;    - aws s3 sync C:\\Users\\no1pr\\Documents\\000\_Code\\awss3\_snowflake\_powerbi\\csv\_export\\AdventureWorks\_CSV\_SAFE\\fact s3://adventureworks-mockup-dienpt7/raw/fact
+- **AWS account** and an IAM user or role with S3 access
+- **AWS CLI** installed and configured (`aws --version`, `aws configure`)
+- **Snowflake** account with privileges to create storage integrations and stages
 
-&nbsp;    - aws s3 sync C:\\Users\\no1pr\\Documents\\000\_Code\\awss3\_snowflake\_powerbi\\csv\_export\\AdventureWorks\_CSV\_SAFE\\lookup s3://adventureworks-mockup-dienpt7/raw/lookup
+> The `csv_export/` folder contains PowerShell scripts to export and organize CSVs used by this project.
 
-\- C:\\Users\\no1pr>aws s3 ls s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/
+## Uploading CSVs to S3 (example, Windows)
 
-\- C:\\Users\\no1pr>aws s3 ls s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/dim/
+Use the AWS CLI to sync local folders to S3. Example commands (PowerShell or CMD):
 
-\- C:\\Users\\no1pr>aws s3 cp s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/dim/Production\_UnitMeasure.csv C:\\temp\\test.csv
+```powershell
+aws s3 sync "C:\Users\<USER>\Documents\000_Code\awss3_snowflake_powerbi\csv_export\AdventureWorks_CSV_SAFE\dim" s3://adventureworks-mockup-dienpt7/raw/dim
+aws s3 sync "C:\Users\<USER>\Documents\000_Code\awss3_snowflake_powerbi\csv_export\AdventureWorks_CSV_SAFE\fact" s3://adventureworks-mockup-dienpt7/raw/fact
+aws s3 sync "C:\Users\<USER>\Documents\000_Code\awss3_snowflake_powerbi\csv_export\AdventureWorks_CSV_SAFE\lookup" s3://adventureworks-mockup-dienpt7/raw/lookup
+```
 
-download: s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/dim/Production\_UnitMeasure.csv to ..\\..\\temp\\test.csv
+Quick checks:
 
-\- GitHub - ACtion - create ....
-- Snowflake query create integration
- CREATE OR REPLACE STORAGE INTEGRATION s3_adventureworks_int
+```powershell
+aws s3 ls s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/
+aws s3 ls s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/dim/
+```
+
+```powershell
+aws s3 cp s3://adventureworks-mockup-dienpt7/adventureworks-data/raw/dim/Production_UnitMeasure.csv C:\temp\test.csv
+```
+
+## Snowflake: create a STORAGE INTEGRATION for S3 🔒
+
+Create an external storage integration in Snowflake (example):
+
+```sql
+CREATE OR REPLACE STORAGE INTEGRATION s3_adventureworks_int
   TYPE = EXTERNAL_STAGE
   STORAGE_PROVIDER = S3
   ENABLED = TRUE
-  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::593857178186:role/snowflake_s3_role'
+  STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::<REDACTED_ACCOUNT_ID>:role/REDACTED'
   STORAGE_ALLOWED_LOCATIONS = (
     's3://adventureworks-mockup-dienpt7/adventureworks-data/raw'
   );
-- STORAGE_AWS_IAM_USER_ARN	String	arn:aws:iam::194317476460:user/6i9d1000-s
-STORAGE_AWS_ROLE_ARN	String	arn:aws:iam::593857178186:role/snowflake_s3_role
-STORAGE_AWS_EXTERNAL_ID	String	PQB81735_SFCRole=2_5T/4y0t1/G2AM0G5VaxhTJF+Tho=
+```
 
-- 
+Notes:
+- Prefer using an **IAM role** for Snowflake (more secure) and set the trust policy to allow Snowflake's account to assume the role.
+- After creating the integration, obtain Snowflake's `STORAGE_AWS_EXTERNAL_ID` (if applicable) and configure the role's trust relationship accordingly.
+
+---
+
+## Tips & Notes 💡
+
+- Keep S3 buckets private and follow least-privilege principles. Do not store AWS credentials in source control.
+- Use `upload to bucket/upload_to_s3.py` for Python-based uploads or the `csv_export/` PowerShell scripts for Windows.
+
 
 
 
