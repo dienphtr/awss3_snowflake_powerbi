@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_humanresources_shift
+    description: "Cleaned shift reference table"
+    columns:
+      - name: shift_id
+        tests:
+          - not_null
+          - unique

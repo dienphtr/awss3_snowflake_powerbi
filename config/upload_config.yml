@@ -1,0 +1,25 @@
+project:
+  name: adventureworks
+  environment: dev
+
+local:
+  raw_root: "C:/Users/no1pr/Documents/000_Code/awss3_snowflake_powerbi/csv_export/adventureworks_data/raw"
+
+s3:
+  bucket: "adventureworks-mockup-dienpt7"
+  raw_prefix: "adventureworks-data/raw"
+
+snowflake:
+  database: "ADVENTUREWORKS_RAW"
+  schema_map:
+    dim: "DIM"
+    fact: "FACT"
+    lookup: "LOOKUP"
+
+upload:
+  add_timestamp_if_exists: true
+  timestamp_format: "%Y%m%d_%H%M%S"
+  file_extension: ".csv"
+
+logging:
+  level: "INFO"

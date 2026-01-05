@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    database: ADVENTUREWORKS_RAW
+    schema: DIM   # hoặc RAW nếu bạn có schema RAW
+    tables:
+      - name: HumanResources_Shift
