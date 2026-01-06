@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fact_sales_specialoffer
+    description: "Fact khuyến mãi, xử lý duplicate và chuẩn hóa dữ liệu."
+    columns:
+      - name: specialoffer_id
+        description: "Khóa chính khuyến mãi."
+        tests:
+          - not_null
+          - unique
+      - name: description
+        description: "Mô tả khuyến mãi chuẩn hóa."
+        tests:
+          - not_null
+      - name: discount_pct
+        description: "Phần trăm giảm giá (>=0)."
+      - name: offer_type
+        description: "Loại khuyến mãi chuẩn hóa."
+      - name: offer_category
+        description: "Danh mục khuyến mãi chuẩn hóa."
+      - name: start_date
+        description: "Ngày bắt đầu chuẩn TIMESTAMP."
+      - name: end_date
+        description: "Ngày kết thúc chuẩn TIMESTAMP."
+      - name: modified_ts
+        description: "Ngày sửa đổi chuẩn TIMESTAMP."

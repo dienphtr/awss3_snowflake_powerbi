@@ -1,0 +1,336 @@
+version: 2
+
+sources:
+  - name: raw_dim
+    database: ADVENTUREWORKS_RAW
+    schema: DIM
+    tables:
+      - name: person_person_history
+        description: "person_person_history"
+        columns:
+          - name: BUSINESSENTITYID
+            description: "Khóa chính tự nhiên."
+          - name: PERSONTYPE
+            description: "Loại person (string)."
+          - name: NAMESTYLE
+            description: "Kiểu tên."
+          - name: TITLE
+            description: "Tiêu đề."
+          - name: FIRSTNAME
+            description: "Tên."
+          - name: MIDDLENAME
+            description: "Tên đệm."
+          - name: LASTNAME
+            description: "Họ."
+          - name: SUFFIX
+            description: "Hậu tố."
+          - name: EMAILPROMOTION
+            description: "Cờ khuyến mãi email."
+          - name: ADDITIONALCONTACTINFO
+            description: "Thông tin liên hệ thêm."
+          - name: DEMOGRAPHICS
+            description: "Thông tin nhân khẩu học."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."
+      - name: production_product_history
+        description: "SCD2 history table cho sản phẩm."
+        columns:
+          - name: PRODUCTID
+            description: "Khóa chính sản phẩm."
+          - name: NAME
+            description: "Tên sản phẩm."
+          - name: PRODUCTNUMBER
+            description: "Mã sản phẩm."
+          - name: MAKEFLAG
+            description: "Cờ sản xuất."
+          - name: FINISHEDGOODSFLAG
+            description: "Cờ thành phẩm."
+          - name: COLOR
+            description: "Màu sắc."
+          - name: SAFETYSTOCKLEVEL
+            description: "Mức tồn kho an toàn."
+          - name: REORDERPOINT
+            description: "Điểm tái đặt hàng."
+          - name: STANDARDCOST
+            description: "Chi phí chuẩn."
+          - name: LISTPRICE
+            description: "Giá niêm yết."
+          - name: SIZE
+            description: "Kích thước."
+          - name: SIZEUNITMEASURECODE
+            description: "Đơn vị đo kích thước."
+          - name: WEIGHTUNITMEASURECODE
+            description: "Đơn vị đo trọng lượng."
+          - name: WEIGHT
+            description: "Trọng lượng."
+          - name: DAYSTOMANUFACTURE
+            description: "Số ngày sản xuất."
+          - name: PRODUCTLINE
+            description: "Dòng sản phẩm."
+          - name: CLASS
+            description: "Phân loại."
+          - name: STYLE
+            description: "Kiểu dáng."
+          - name: PRODUCTSUBCATEGORYID
+            description: "ID phân loại con."
+          - name: PRODUCTMODELID
+            description: "ID model sản phẩm."
+          - name: SELLSTARTDATE
+            description: "Ngày bắt đầu bán (string)."
+          - name: SELLENDDATE
+            description: "Ngày kết thúc bán (string)."
+          - name: DISCONTINUEDDATE
+            description: "Ngày ngừng bán."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."
+  - name: raw_fact
+    database: ADVENTUREWORKS_RAW
+    schema: FACT
+    tables:
+      - name: sales_customer_history
+        description: "SCD2 history table cho khách hàng bán hàng."
+        columns:
+          - name: CUSTOMERID
+            description: "Khóa chính khách hàng."
+          - name: PERSONID
+            description: "ID cá nhân (float)."
+          - name: STOREID
+            description: "ID cửa hàng (float)."
+          - name: TERRITORYID
+            description: "ID lãnh thổ."
+          - name: ACCOUNTNUMBER
+            description: "Số tài khoản khách hàng."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."
+      - name: sales_salesorderdetail_history
+        description: "SCD2 history table cho chi tiết đơn hàng."
+        columns:
+          - name: SALESORDERID
+            description: "ID đơn hàng."
+          - name: SALESORDERDETAILID
+            description: "ID chi tiết đơn hàng."
+          - name: CARRIERTRACKINGNUMBER
+            description: "Mã theo dõi vận chuyển."
+          - name: ORDERQTY
+            description: "Số lượng đặt."
+          - name: PRODUCTID
+            description: "ID sản phẩm."
+          - name: SPECIALOFFERID
+            description: "ID khuyến mãi."
+          - name: UNITPRICE
+            description: "Đơn giá."
+          - name: UNITPRICEDISCOUNT
+            description: "Chiết khấu đơn giá."
+          - name: LINETOTAL
+            description: "Tổng dòng."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."
+      - name: sales_salesorderheader_history
+        description: "SCD2 history table cho header đơn hàng."
+        columns:
+          - name: SALESORDERID
+            description: "ID đơn hàng."
+          - name: REVISIONNUMBER
+            description: "Số lần chỉnh sửa."
+          - name: ORDERDATE
+            description: "Ngày đặt hàng (string)."
+          - name: DUEDATE
+            description: "Ngày đến hạn (string)."
+          - name: SHIPDATE
+            description: "Ngày giao hàng (string)."
+          - name: STATUS
+            description: "Trạng thái đơn hàng."
+          - name: ONLINEORDERFLAG
+            description: "Cờ đơn hàng online."
+          - name: SALESORDERNUMBER
+            description: "Số đơn hàng."
+          - name: PURCHASEORDERNUMBER
+            description: "Số đơn mua hàng."
+          - name: ACCOUNTNUMBER
+            description: "Số tài khoản."
+          - name: CUSTOMERID
+            description: "ID khách hàng."
+          - name: SALESPERSONID
+            description: "ID nhân viên bán hàng."
+          - name: TERRITORYID
+            description: "ID lãnh thổ."
+          - name: BILLTOADDRESSID
+            description: "ID địa chỉ thanh toán."
+          - name: SHIPTOADDRESSID
+            description: "ID địa chỉ giao hàng."
+          - name: SHIPMETHODID
+            description: "ID phương thức giao hàng."
+          - name: CREDITCARDID
+            description: "ID thẻ tín dụng."
+          - name: CREDITCARDAPPROVALCODE
+            description: "Mã duyệt thẻ tín dụng."
+          - name: CURRENCYRATEID
+            description: "ID tỷ giá."
+          - name: SUBTOTAL
+            description: "Tổng phụ."
+          - name: TAXAMT
+            description: "Thuế."
+          - name: FREIGHT
+            description: "Phí vận chuyển."
+          - name: TOTALDUE
+            description: "Tổng phải trả."
+          - name: COMMENT
+            description: "Ghi chú."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."
+      - name: sales_salesterritory_history
+        description: "SCD2 history table cho lãnh thổ bán hàng."
+        columns:
+          - name: TERRITORYID
+            description: "ID lãnh thổ."
+          - name: NAME
+            description: "Tên lãnh thổ."
+          - name: COUNTRYREGIONCODE
+            description: "Mã quốc gia/vùng."
+          - name: GROUP
+            description: "Nhóm lãnh thổ."
+          - name: SALESYTD
+            description: "Doanh số YTD."
+          - name: SALESLASTYEAR
+            description: "Doanh số năm trước."
+          - name: COSTYTD
+            description: "Chi phí YTD."
+          - name: COSTLASTYEAR
+            description: "Chi phí năm trước."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."
+      - name: sales_specialoffer_history
+        description: "SCD2 history table cho khuyến mãi."
+        columns:
+          - name: SPECIALOFFERID
+            description: "ID khuyến mãi."
+          - name: DESCRIPTION
+            description: "Mô tả khuyến mãi."
+          - name: DISCOUNTPCT
+            description: "Phần trăm giảm giá."
+          - name: TYPE
+            description: "Loại khuyến mãi."
+          - name: CATEGORY
+            description: "Danh mục khuyến mãi."
+          - name: STARTDATE
+            description: "Ngày bắt đầu (string)."
+          - name: ENDDATE
+            description: "Ngày kết thúc (string)."
+          - name: MINQTY
+            description: "Số lượng tối thiểu."
+          - name: MAXQTY
+            description: "Số lượng tối đa."
+          - name: ROWGUID
+            description: "GUID."
+          - name: MODIFIEDDATE
+            description: "Ngày sửa đổi (string)."
+          - name: ROW_HASH
+            description: "Hash toàn bộ row."
+          - name: PK_HASH
+            description: "Hash PK."
+          - name: EFFECTIVE_FROM
+            description: "Ngày hiệu lực."
+          - name: EFFECTIVE_TO
+            description: "Ngày hết hiệu lực."
+          - name: IS_CURRENT
+            description: "Cờ record hiện tại."
+          - name: IS_DELETED
+            description: "Cờ record đã xóa."
+          - name: LOAD_TS
+            description: "Timestamp load."

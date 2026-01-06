@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: "Fact table tổng hợp từ SalesOrderHeader, SalesOrderDetail, Product, Customer, Territory."
+    columns:
+      - name: salesorderdetail_id
+        description: "Khóa chính chi tiết đơn hàng."
+        tests:
+          - not_null
+          - unique
+
+      - name: productid
+        description: "Khóa sản phẩm."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_production_production')
+              field: product_id
+
+      - name: customerid
+        description: "Khóa khách hàng."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+
+      - name: territoryid
+        description: "Khóa lãnh thổ."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fact_salesterritory')
+                field: territory_id
+
+      - name: line_total
+        description: "Doanh thu từng dòng."
+        tests:
+          - not_null
+
+      - name: total_due
+        description: "Tổng giá trị đơn hàng."
+        tests:
+          - not_null

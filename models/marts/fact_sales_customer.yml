@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: fact_sales_customer
+    description: "Fact khách hàng bán hàng, xử lý duplicate và chuẩn hóa dữ liệu."
+    columns:
+      - name: customer_id
+        description: "Khóa chính khách hàng."
+        tests:
+          - not_null
+          - unique
+      - name: account_number
+        description: "Số tài khoản khách hàng chuẩn hóa."
+        tests:
+          - not_null
+      - name: modified_ts
+        description: "Ngày sửa đổi chuẩn TIMESTAMP."
+      - name: territoryid
+        description: "ID lãnh thổ."
+        tests:
+          - not_null

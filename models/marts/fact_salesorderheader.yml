@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fact_salesorderheader
+    description: "Fact header đơn hàng, xử lý duplicate và chuẩn hóa dữ liệu."
+    columns:
+      - name: salesorder_id
+        description: "Khóa chính đơn hàng."
+        tests:
+          - not_null
+          - unique
+      - name: customerid
+        description: "Khóa ngoại tới khách hàng."
+        tests:
+          - not_null
+      - name: order_date
+        description: "Ngày đặt hàng chuẩn TIMESTAMP."
+      - name: total_due
+        description: "Tổng phải trả (>=0)."
+      - name: online_order_flag
+        description: "Cờ đơn hàng online (boolean)."
+        tests: 
+        - accepted_values: 
+            arguments: 
+              values: [true, false]
+      - name: modified_ts
+        description: "Ngày sửa đổi chuẩn TIMESTAMP."
