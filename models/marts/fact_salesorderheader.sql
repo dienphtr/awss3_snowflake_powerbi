@@ -39,7 +39,6 @@ WITH ranked AS (
         ) AS rn
     FROM {{ ref('stg_salesorderheader_history') }}
     WHERE SALESORDERID IS NOT NULL
-        AND order_date IS NOT NULL
 )
 
 SELECT
