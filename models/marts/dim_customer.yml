@@ -1,10 +1,12 @@
-version: 2
-
 models:
   - name: dim_customer
-    description: "Dimension khách hàng từ PERSON_PERSON_HISTORY."
     columns:
       - name: customer_id
         tests:
           - not_null
           - unique
+      - name: personid
+        tests:
+          - relationships:
+              to: ref('dim_person')
+              field: customer_id
