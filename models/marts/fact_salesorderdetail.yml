@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fact_salesorderdetail
+    description: "Fact chi tiết đơn hàng, xử lý duplicate và chuẩn hóa dữ liệu."
+    columns:
+      - name: salesorderdetail_id
+        description: "Khóa chính chi tiết đơn hàng."
+        tests:
+          - not_null
+          - unique
+      - name: salesorder_id
+        description: "Khóa ngoại tới đơn hàng."
+        tests:
+          - not_null
+      - name: productid
+        description: "Khóa ngoại tới sản phẩm."
+        tests:
+          - not_null
+      - name: order_qty
+        description: "Số lượng đặt (>=0)."
+      - name: unit_price
+        description: "Đơn giá (>=0)."
+      - name: line_total
+        description: "Tổng dòng (>=0)."
+      - name: modified_ts
+        description: "Ngày sửa đổi chuẩn TIMESTAMP."

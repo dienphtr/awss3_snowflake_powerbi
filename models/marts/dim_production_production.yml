@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_production_production
+    description: "Dimension sản phẩm, xử lý duplicate và chuẩn hóa dữ liệu."
+    columns:
+      - name: product_id
+        description: "Khóa chính sản phẩm."
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: "Tên sản phẩm chuẩn hóa."
+        tests:
+          - not_null
+      - name: standard_cost
+        description: "Chi phí chuẩn (>=0)."
+      - name: list_price
+        description: "Giá niêm yết (>=0)."
+      - name: colour_clean
+        description: "Màu sắc chuẩn hóa."
+      - name: modifieddate_ts
+        description: "Ngày sửa đổi chuẩn TIMESTAMP."
