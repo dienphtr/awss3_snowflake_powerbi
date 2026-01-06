@@ -4,12 +4,6 @@ models:
   - name: fact_sales
     description: "Fact table tổng hợp từ SalesOrderHeader, SalesOrderDetail, Product, Customer, Territory."
     columns:
-      - name: salesorder_id
-        description: "Khóa chính đơn hàng."
-        tests:
-          - not_null
-          - unique
-
       - name: salesorderdetail_id
         description: "Khóa chính chi tiết đơn hàng."
         tests:

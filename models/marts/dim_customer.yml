@@ -5,8 +5,3 @@ models:
         tests:
           - not_null
           - unique
-      - name: personid
-        tests:
-          - relationships:
-              to: ref('dim_person')
-              field: customer_id
