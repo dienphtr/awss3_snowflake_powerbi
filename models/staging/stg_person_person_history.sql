@@ -13,7 +13,7 @@ SELECT
     additionalcontactinfo,
     demographics,
     rowguid,
-    TRY_CAST(modifieddate AS TIMESTAMP) AS modified_ts,
+    TO_TIMESTAMP(MODIFIEDDATE, 'DD-Mon-YY HH:MI:SS AM') as modified_ts,
     row_hash,
     pk_hash,
     effective_from,
