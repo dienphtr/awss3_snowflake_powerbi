@@ -41,6 +41,7 @@ renamed AS (
         IS_DELETED,
         LOAD_TS
     FROM source
+    WHERE IS_CURRENT = TRUE
 
 )
 

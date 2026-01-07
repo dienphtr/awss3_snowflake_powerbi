@@ -22,3 +22,4 @@ SELECT
     is_deleted,
     load_ts
 FROM {{ source('raw_dim', 'person_person_history') }}
+WHERE is_current = True

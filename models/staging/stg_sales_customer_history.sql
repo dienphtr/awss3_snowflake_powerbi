@@ -16,3 +16,4 @@ SELECT
     IS_DELETED,
     LOAD_TS
 FROM {{ source('raw_fact', 'sales_customer_history') }}
+WHERE IS_CURRENT = TRUE
